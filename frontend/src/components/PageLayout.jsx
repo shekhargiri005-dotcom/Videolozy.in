@@ -29,6 +29,12 @@ export default function PageLayout({ children, title, description, settings, bgT
                         <div className="absolute inset-0 bg-amber-950/85 backdrop-blur-sm" />
                         <div className="absolute inset-0 bg-gradient-to-b from-yellow-600/20 via-amber-900/50 to-surface-950/95" />
                     </>
+                ) : bgTheme === 'slate' ? (
+                    <>
+                        {/* Sleek Slate/Gray modern studio gradient from the mockup */}
+                        <div className="absolute inset-0 bg-[#2C2C2F]/90 backdrop-blur-md" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#4A4B50]/30 via-[#2C2C2F]/60 to-[#101012]" />
+                    </>
                 ) : (
                     <>
                         {/* Standard dark cinematic gradient overlay */}
