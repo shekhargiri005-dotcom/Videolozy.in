@@ -9,14 +9,27 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (token) {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            setUser({ token });
-        } else {
-            delete api.defaults.headers.common['Authorization'];
-            setUser(null);
-        }
-        setLoading(false);
+        const verifyToken = async () => {
+            if (token) {
+                try {
+                    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    await api.get('/admin/verify_token');
+                    setUser({ token });
+                } catch (error) {
+                    console.error('Token validation failed:', error);
+                    localStorage.removeItem('videolozy_token');
+                    delete api.defaults.headers.common['Authorization'];
+                    setToken(null);
+                    setUser(null);
+                }
+            } else {
+                delete api.defaults.headers.common['Authorization'];
+                setUser(null);
+            }
+            setLoading(false);
+        };
+
+        verifyToken();
     }, [token]);
 
     const login = async (username, password) => {

@@ -29,6 +29,12 @@ def login():
     return jsonify({"access_token": token}), 200
 
 
+@admin_bp.route("/verify_token", methods=["GET"])
+@jwt_required()
+def verify_token():
+    return jsonify({"valid": True}), 200
+
+
 # ─── DASHBOARD ───────────────────────────────────────────────────────────────
 
 @admin_bp.route("/dashboard", methods=["GET"])

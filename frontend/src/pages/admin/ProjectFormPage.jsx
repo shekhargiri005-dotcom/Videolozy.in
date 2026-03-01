@@ -15,6 +15,7 @@ const CATEGORIES = ['Commercial', 'Music Video', 'Documentary', 'Short Film', 'C
 
 function FileUploadField({ label, accept, resourceType, folder, currentUrl, onSuccess, icon: Icon }) {
     const [uploading, setUploading] = useState(false);
+    const [progress, setProgress] = useState(0);
     const [preview, setPreview] = useState(currentUrl || '');
     const [error, setError] = useState('');
     const fileRef = useRef();
@@ -25,26 +26,37 @@ function FileUploadField({ label, accept, resourceType, folder, currentUrl, onSu
         const file = e.target.files[0];
         if (!file) return;
         setUploading(true);
+        setProgress(0);
         setError('');
         try {
-            const res = await uploadFile(file, resourceType, folder);
+            const res = await uploadFile(file, resourceType, folder, (percent) => setProgress(percent));
             setPreview(res.data.url);
             onSuccess(res.data.public_id, res.data.url);
         } catch (err) {
             setError(err.response?.data?.error || 'Upload failed.');
         } finally {
             setUploading(false);
+            setProgress(0);
         }
     };
 
     return (
         <div>
             <div
-                onClick={() => fileRef.current?.click()}
-                className="border-2 border-dashed border-white/10 hover:border-brand-500/50 rounded-xl p-4 text-center cursor-pointer transition-colors"
+                onClick={() => !uploading && fileRef.current?.click()}
+                className={`border-2 border-dashed ${uploading ? 'border-brand-500/50 cursor-not-allowed' : 'border-white/10 hover:border-brand-500/50 cursor-pointer'} rounded-xl p-4 text-center transition-colors relative overflow-hidden flex flex-col items-center justify-center min-h-[120px]`}
             >
+                {uploading && (
+                    <div
+                        className="absolute bottom-0 left-0 h-1 bg-brand-500 transition-all duration-300"
+                        style={{ width: `${progress}%` }}
+                    />
+                )}
                 {uploading ? (
-                    <LoadingSpinner size="sm" text="Uploading..." />
+                    <div className="flex flex-col items-center gap-2 text-brand-400">
+                        <LoadingSpinner size="sm" />
+                        <span className="text-xs font-bold">{progress}%</span>
+                    </div>
                 ) : preview ? (
                     resourceType === 'image' ? (
                         <img src={preview} alt="preview" className="h-24 mx-auto rounded object-cover" />
@@ -214,59 +226,7 @@ export default function ProjectFormPage() {
                                 <input type="date" name="release_date" value={form.release_date} onChange={handleChange} className="input-field" />
                             </div>
                         </div>
-                    </div>
-
-                    {/* Primary Hero Media (Backward compatibility for the portfolio grid main image) */}
-                    <div className="card p-6 space-y-4 border-brand-500/20">
-                        <div className="mb-2">
-                            <h2 className="font-semibold text-white">Primary Thumbnail & Hero</h2>
-                            <p className="text-xs text-slate-400 mt-1">This image and video represent the project on the main Portfolio grid page.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="label text-brand-300">Thumbnail Image <span className="text-slate-500 font-normal">(16:9 recommended)</span></label>
-                                {/* Legacy Upload Field modified correctly just for Image */}
-                                <div>
-                                    <div className="border-2 border-dashed border-white/10 hover:border-brand-500/50 rounded-xl p-4 text-center">
-                                        {currentThumbnailUrl ? (
-                                            <img src={currentThumbnailUrl} alt="preview" className="h-24 mx-auto rounded object-cover" />
-                                        ) : (
-                                            <p className="text-xs text-slate-500 py-4">Upload below OR paste ID manually</p>
-                                        )}
-                                    </div>
-                                    <input
-                                        name="cloudinary_thumbnail_id"
-                                        value={form.cloudinary_thumbnail_id}
-                                        onChange={handleChange}
-                                        className="input-field mt-2 text-xs font-mono"
-                                        placeholder="Public ID (e.g., sample-thumb)"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="label">Hero Video <span className="text-slate-500 font-normal">(Optional main trailer)</span></label>
-                                <div>
-                                    <div className="border-2 border-dashed border-white/10 hover:border-brand-500/50 rounded-xl p-4 text-center">
-                                        {form.cloudinary_video_id ? (
-                                            <div className="flex flex-col items-center gap-1 text-green-400 py-4">
-                                                <Film size={24} />
-                                                <p className="text-[10px] uppercase font-bold tracking-wider">Video Linked</p>
-                                            </div>
-                                        ) : (
-                                            <p className="text-xs text-slate-500 py-4">Upload below OR paste ID manually</p>
-                                        )}
-                                    </div>
-                                    <input
-                                        name="cloudinary_video_id"
-                                        value={form.cloudinary_video_id}
-                                        onChange={handleChange}
-                                        className="input-field mt-2 text-xs font-mono"
-                                        placeholder="Public ID (e.g., sample-video)"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="pt-2 border-t border-white/5 mt-4">
+                        <div className="pt-4 mt-2">
                             <div className="flex items-center gap-3">
                                 <input
                                     type="checkbox"
@@ -337,23 +297,23 @@ export default function ProjectFormPage() {
                                                     <option value="image">Still Image</option>
                                                 </select>
                                             </div>
-                                            <div className="grid grid-cols-2 gap-2">
+                                            <div className="grid grid-cols-2 gap-2 mt-2 opacity-40 focus-within:opacity-100 transition-opacity">
                                                 <div>
-                                                    <label className="label text-[10px] text-slate-400">Cloudinary ID</label>
+                                                    <label className="label text-[9px] text-slate-500 uppercase tracking-wider">Cloudinary ID (Auto)</label>
                                                     <input
+                                                        readOnly
                                                         value={item.cloudinary_id}
-                                                        onChange={(e) => handleMediaChange(index, 'cloudinary_id', e.target.value)}
-                                                        className="input-field py-1 text-xs bg-surface-950 font-mono text-slate-300"
-                                                        placeholder="e.g. sample-video"
+                                                        className="input-field py-1 px-2 text-[10px] bg-black/40 font-mono text-slate-400 border-transparent cursor-default"
+                                                        placeholder="Auto-filled on upload"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="label text-[10px] text-slate-400">Direct URL / Cloudinary Link</label>
+                                                    <label className="label text-[9px] text-slate-500 uppercase tracking-wider">Direct URL (Auto)</label>
                                                     <input
+                                                        readOnly
                                                         value={item.url}
-                                                        onChange={(e) => handleMediaChange(index, 'url', e.target.value)}
-                                                        className="input-field py-1 text-xs bg-surface-950 font-mono text-slate-300"
-                                                        placeholder="https://..."
+                                                        className="input-field py-1 px-2 text-[10px] bg-black/40 font-mono text-slate-400 border-transparent cursor-default"
+                                                        placeholder="Auto-filled on upload"
                                                     />
                                                 </div>
                                             </div>

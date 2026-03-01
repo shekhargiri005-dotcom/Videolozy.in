@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
-    timeout: 30000,
+    timeout: 1200000, // 20 minutes for large video uploads
 });
 
 // Attach stored token on every request
@@ -49,16 +49,23 @@ export const fetchAdminSettings = () => api.get('/admin/settings');
 export const updateSettings = (data) => api.put('/admin/settings', data);
 
 // ── Admin: Upload ─────────────────────────────────────────────────────────────
-export const uploadFile = (file, resourceType = 'image', folder = '') => {
+export const uploadFile = (file, resourceType = 'image', folder = '', onProgress = null) => {
     const form = new FormData();
     form.append('file', file);
     form.append('resource_type', resourceType);
     if (folder) {
         form.append('folder', folder);
     }
-    return api.post('/admin/upload', form, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-    });
+
+    const config = {};
+    if (onProgress) {
+        config.onUploadProgress = (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            onProgress(percentCompleted);
+        };
+    }
+
+    return api.post('/admin/upload', form, config);
 };
 
 export default api;

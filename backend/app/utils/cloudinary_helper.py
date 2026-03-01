@@ -22,12 +22,27 @@ def upload_video(file_storage, folder_name: str = "videolozy/videos") -> dict:
     if size > current_app.config["MAX_VIDEO_SIZE"]:
         raise ValueError("Video file exceeds 1 GB limit.")
 
-    result = cloudinary.uploader.upload_large(
-        file_storage,
-        resource_type="video",
-        folder=folder_name,
-    )
-    return {"public_id": result["public_id"], "url": result["secure_url"]}
+    import tempfile
+    import os
+    
+    # Cloudinary upload_large requires a context-manager compliant file object
+    # like an open() handle, or a physical file path. We'll save it to a physical tmp file.
+    fd, temp_path = tempfile.mkstemp(suffix=f".{ext}")
+    try:
+        with os.fdopen(fd, 'wb') as f:
+            file_storage.seek(0)
+            f.write(file_storage.read())
+
+        result = cloudinary.uploader.upload_large(
+            temp_path,
+            resource_type="video",
+            folder=folder_name,
+            chunk_size=6000000,
+        )
+        return {"public_id": result["public_id"], "url": result["secure_url"]}
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
 
 def upload_image(file_storage, folder_name: str = "videolozy/thumbnails") -> dict:
