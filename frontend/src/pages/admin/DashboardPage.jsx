@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { BarChart3, Mail, FolderOpen, Clock } from 'lucide-react';
+import { BarChart3, Mail, FolderOpen, Clock, HardDrive, Server, Film, Database } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { fetchDashboard } from '../../services/api';
+import { fetchDashboard, fetchStorageStats } from '../../services/api';
 
 function StatCard({ icon: Icon, label, value, color }) {
     return (
@@ -22,15 +22,28 @@ function StatCard({ icon: Icon, label, value, color }) {
 
 export default function DashboardPage() {
     const [data, setData] = useState(null);
+    const [storageStats, setStorageStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetchDashboard()
-            .then((res) => setData(res.data))
+        Promise.all([fetchDashboard(), fetchStorageStats()])
+            .then(([dashRes, storageRes]) => {
+                setData(dashRes.data);
+                setStorageStats(storageRes.data);
+            })
             .catch(() => setError('Failed to load dashboard data.'))
             .finally(() => setLoading(false));
     }, []);
+
+    const formatBytes = (bytes, decimals = 2) => {
+        if (!+bytes) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    };
 
     const statusClass = { unread: 'badge-unread', read: 'badge-read', replied: 'badge-replied' };
 
@@ -65,6 +78,64 @@ export default function DashboardPage() {
                                 </div>
                             </Link>
                         </div>
+
+                        {/* Storage Stats */}
+                        {storageStats && (
+                            <div className="card p-0 overflow-hidden border border-white/10 mb-10">
+                                <div className="p-5 border-b border-white/10 bg-surface-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <HardDrive className="text-brand-400" size={20} />
+                                        <h2 className="text-lg font-display font-semibold text-white">Storage & Usage</h2>
+                                    </div>
+                                </div>
+
+                                <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* DB Storage */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-end">
+                                            <div>
+                                                <h3 className="text-slate-300 font-medium flex items-center gap-2 text-sm">
+                                                    <Database size={16} className="text-purple-400" /> Database Volume
+                                                </h3>
+                                                <p className="text-xs text-slate-500 mt-1">NeonDB cluster storage</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="text-lg font-bold text-white tracking-wide">{formatBytes(storageStats.database_bytes)}</span>
+                                                <span className="text-xs text-slate-500 block">/ {formatBytes(storageStats.database_limit_bytes)}</span>
+                                            </div>
+                                        </div>
+                                        <div className="w-full bg-surface-950 rounded-full h-3 border border-white/5 overflow-hidden">
+                                            <div
+                                                className="bg-purple-500 h-full rounded-full transition-all duration-1000 ease-out"
+                                                style={{ width: `${Math.min(100, Math.max(1, (storageStats.database_bytes / storageStats.database_limit_bytes) * 100))}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Media Storage */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-end">
+                                            <div>
+                                                <h3 className="text-slate-300 font-medium flex items-center gap-2 text-sm">
+                                                    <Film size={16} className="text-brand-400" /> Media Volume
+                                                </h3>
+                                                <p className="text-xs text-slate-500 mt-1">Cloudinary video & image storage</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="text-lg font-bold text-white tracking-wide">{formatBytes(storageStats.cloudinary_bytes)}</span>
+                                                <span className="text-xs text-slate-500 block">/ {formatBytes(storageStats.cloudinary_limit_bytes)}</span>
+                                            </div>
+                                        </div>
+                                        <div className="w-full bg-surface-950 rounded-full h-3 border border-white/5 overflow-hidden">
+                                            <div
+                                                className="bg-brand-500 h-full rounded-full transition-all duration-1000 ease-out"
+                                                style={{ width: `${Math.min(100, Math.max(1, (storageStats.cloudinary_bytes / storageStats.cloudinary_limit_bytes) * 100))}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Recent Inquiries */}
                         <div>

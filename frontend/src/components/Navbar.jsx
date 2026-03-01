@@ -32,7 +32,7 @@ export default function Navbar({ variant = 'public' }) {
     };
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <nav className={`fixed top-0 left-0 right-0 z-50 ${variant === 'admin' ? 'glass border-b border-white/10' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
@@ -55,8 +55,8 @@ export default function Navbar({ variant = 'public' }) {
                                 key={link.to}
                                 to={link.to}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${location.pathname === link.to
-                                        ? 'text-white bg-white/10'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    ? 'text-white bg-white/10'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 {link.label}
@@ -96,8 +96,8 @@ export default function Navbar({ variant = 'public' }) {
                             to={link.to}
                             onClick={() => setMenuOpen(false)}
                             className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${location.pathname === link.to
-                                    ? 'text-white bg-white/10'
-                                    : 'text-slate-400 hover:text-white'
+                                ? 'text-white bg-white/10'
+                                : 'text-slate-400 hover:text-white'
                                 }`}
                         >
                             {link.label}

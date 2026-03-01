@@ -30,8 +30,13 @@ export default function LoginPage() {
         try {
             await login(form.username, form.password);
             navigate(from, { replace: true });
-        } catch {
-            setError('Invalid username or password.');
+        } catch (err) {
+            if (err.response && err.response.status === 401) {
+                setError('Invalid username or password.');
+            } else {
+                setError('Network error (CORS or server down). Please try again.');
+                console.error("Login attempt failed:", err);
+            }
         } finally {
             setLoading(false);
         }

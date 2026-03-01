@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Search, Clapperboard } from 'lucide-react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import PageLayout from '../../components/PageLayout';
 import ProjectCard from '../../components/ProjectCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fetchProjects, fetchSiteSettings } from '../../services/api';
@@ -28,13 +26,12 @@ export default function PortfolioPage() {
     const filtered = activeCategory === 'All' ? projects : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <>
-            <Helmet>
-                <title>Portfolio — Videolozy.in</title>
-                <meta name="description" content="Browse all video editing projects by Videolozy.in — commercials, music videos, documentaries, and more." />
-            </Helmet>
-            <Navbar />
-
+        <PageLayout
+            title="Portfolio — Videolozy.in"
+            description="Explore our complete collection of short films, movies, weddings, and commercial projects."
+            settings={settings}
+            bgTheme="golden"
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
                 <div className="text-center mb-12">
                     <p className="text-brand-400 text-sm font-medium uppercase tracking-widest mb-2">Work</p>
@@ -74,8 +71,6 @@ export default function PortfolioPage() {
                     </div>
                 )}
             </div>
-
-            <Footer settings={settings} />
-        </>
+        </PageLayout>
     );
 }

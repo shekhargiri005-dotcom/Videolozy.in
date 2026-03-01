@@ -29,6 +29,7 @@ export const adminLogin = (credentials) => api.post('/admin/login', credentials)
 
 // ── Admin: Dashboard ─────────────────────────────────────────────────────────
 export const fetchDashboard = () => api.get('/admin/dashboard');
+export const fetchStorageStats = () => api.get('/admin/stats/storage');
 
 // ── Admin: Projects ───────────────────────────────────────────────────────────
 export const fetchAdminProjects = () => api.get('/admin/projects');
@@ -48,10 +49,13 @@ export const fetchAdminSettings = () => api.get('/admin/settings');
 export const updateSettings = (data) => api.put('/admin/settings', data);
 
 // ── Admin: Upload ─────────────────────────────────────────────────────────────
-export const uploadFile = (file, resourceType = 'image') => {
+export const uploadFile = (file, resourceType = 'image', folder = '') => {
     const form = new FormData();
     form.append('file', file);
     form.append('resource_type', resourceType);
+    if (folder) {
+        form.append('folder', folder);
+    }
     return api.post('/admin/upload', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
     });

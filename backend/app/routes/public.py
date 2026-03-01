@@ -10,6 +10,16 @@ public_bp = Blueprint("public", __name__)
 
 
 def project_to_dict(p: Project, cloud_name: str, detail: bool = False) -> dict:
+    media_list = []
+    for m in p.media:
+        media_list.append({
+            "id": m.id,
+            "media_type": m.media_type,
+            "cloudinary_id": m.cloudinary_id,
+            "url": m.url,
+            "order": m.order
+        })
+
     base = {
         "id": p.id,
         "title": p.title,
@@ -21,6 +31,7 @@ def project_to_dict(p: Project, cloud_name: str, detail: bool = False) -> dict:
             if p.cloudinary_thumbnail_id
             else None
         ),
+        "media": media_list,
     }
     if detail:
         base.update(

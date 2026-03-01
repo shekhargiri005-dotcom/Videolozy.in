@@ -10,7 +10,7 @@ def _extension(filename: str) -> str:
     return filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
 
 
-def upload_video(file_storage) -> dict:
+def upload_video(file_storage, folder_name: str = "videolozy/videos") -> dict:
     """Upload a video file to Cloudinary. Returns {public_id, url}."""
     ext = _extension(file_storage.filename)
     if ext not in ALLOWED_VIDEO_EXT:
@@ -20,17 +20,17 @@ def upload_video(file_storage) -> dict:
     size = file_storage.tell()
     file_storage.seek(0)
     if size > current_app.config["MAX_VIDEO_SIZE"]:
-        raise ValueError("Video file exceeds 100 MB limit.")
+        raise ValueError("Video file exceeds 1 GB limit.")
 
     result = cloudinary.uploader.upload_large(
         file_storage,
         resource_type="video",
-        folder="videolozy/videos",
+        folder=folder_name,
     )
     return {"public_id": result["public_id"], "url": result["secure_url"]}
 
 
-def upload_image(file_storage) -> dict:
+def upload_image(file_storage, folder_name: str = "videolozy/thumbnails") -> dict:
     """Upload an image file to Cloudinary. Returns {public_id, url}."""
     ext = _extension(file_storage.filename)
     if ext not in ALLOWED_IMAGE_EXT:
@@ -45,7 +45,7 @@ def upload_image(file_storage) -> dict:
     result = cloudinary.uploader.upload(
         file_storage,
         resource_type="image",
-        folder="videolozy/thumbnails",
+        folder=folder_name,
     )
     return {"public_id": result["public_id"], "url": result["secure_url"]}
 

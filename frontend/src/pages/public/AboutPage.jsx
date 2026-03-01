@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { User, Briefcase, Camera } from 'lucide-react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import PageLayout from '../../components/PageLayout';
 import { PageLoader } from '../../components/LoadingSpinner';
 import { fetchSiteSettings } from '../../services/api';
 
@@ -20,13 +18,12 @@ export default function AboutPage() {
     if (loading) return <PageLoader />;
 
     return (
-        <>
-            <Helmet>
-                <title>About — Videolozy.in</title>
-                <meta name="description" content="Learn more about the film editor behind Videolozy.in." />
-            </Helmet>
-            <Navbar />
-
+        <PageLayout
+            title="About — Videolozy.in"
+            description="Learn more about the film editor behind Videolozy.in."
+            settings={settings}
+            bgTheme="golden"
+        >
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
                 <div className="text-center mb-14">
                     <p className="text-brand-400 text-sm font-medium uppercase tracking-widest mb-2">About</p>
@@ -78,8 +75,6 @@ export default function AboutPage() {
                     </div>
                 </div>
             </div>
-
-            <Footer settings={settings} />
-        </>
+        </PageLayout>
     );
 }

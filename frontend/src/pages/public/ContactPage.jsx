@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Send, CheckCircle } from 'lucide-react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import PageLayout from '../../components/PageLayout';
 import { submitContact, fetchSiteSettings } from '../../services/api';
 
 const BUDGET_OPTIONS = [
@@ -56,13 +54,11 @@ export default function ContactPage() {
     };
 
     return (
-        <>
-            <Helmet>
-                <title>Contact — Videolozy.in</title>
-                <meta name="description" content="Hire Videolozy.in for your next film editing project. Get in touch today." />
-            </Helmet>
-            <Navbar />
-
+        <PageLayout
+            title="Contact — Videolozy.in"
+            description="Hire Videolozy.in for your next film editing project. Get in touch today."
+            settings={settings}
+        >
             <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
                 <div className="text-center mb-12">
                     <p className="text-brand-400 text-sm font-medium uppercase tracking-widest mb-2">Let's Work Together</p>
@@ -149,8 +145,6 @@ export default function ContactPage() {
                     </form>
                 )}
             </div>
-
-            <Footer settings={settings} />
-        </>
+        </PageLayout>
     );
 }

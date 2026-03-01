@@ -2,10 +2,12 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app import db
 from app.models.user import AdminUser
-from app.models.project import Project
+from app.models.project import Project, ProjectMedia
 from app.models.inquiry import Inquiry
 from app.models.setting import SiteSetting
 from app.utils.cloudinary_helper import upload_video, upload_image, delete_resource
+import cloudinary.api
+from sqlalchemy import text
 from datetime import datetime, date
 
 admin_bp = Blueprint("admin", __name__)
@@ -56,9 +58,55 @@ def dashboard():
     ), 200
 
 
+# ─── STORAGE STATS ───────────────────────────────────────────────────────────
+
+@admin_bp.route("/stats/storage", methods=["GET"])
+@jwt_required()
+def storage_stats():
+    # 1. Get database size (NeonDB PostgreSQL)
+    db_size_bytes = 0
+    try:
+        # PostgreSQL specific: get size of current database
+        result = db.session.execute(text("SELECT pg_database_size(current_database())"))
+        db_size_bytes = result.scalar() or 0
+    except Exception as e:
+        print("Error fetching DB size:", e)
+
+    # 2. Get Cloudinary usage
+    cloudinary_usage_bytes = 0
+    try:
+        # The admin API can fetch usage statistics. We'll try to get the bandwidth/storage usage.
+        # Note: Depending on the Cloudinary plan, `usage()` might require specific permissions.
+        # For a simple workaround if usage() fails, we might just return 0 or a placeholder,
+        # but let's attempt the official API first.
+        usage_res = cloudinary.api.usage()
+        # usage_res usually contains 'storage' with 'usage' in bytes
+        if "storage" in usage_res and "usage" in usage_res["storage"]:
+            cloudinary_usage_bytes = usage_res["storage"]["usage"]
+    except Exception as e:
+        print("Error fetching Cloudinary usage:", e)
+
+    return jsonify({
+        "database_bytes": db_size_bytes,
+        "cloudinary_bytes": cloudinary_usage_bytes,
+        "database_limit_bytes": 536870912,    # e.g., 500 MB Free Tier
+        "cloudinary_limit_bytes": 26843545600 # e.g., 25 GB Free Tier
+    }), 200
+
+
 # ─── PROJECTS ────────────────────────────────────────────────────────────────
 
 def project_to_dict(p: Project, cloud_name: str) -> dict:
+    media_list = []
+    for m in p.media:
+        media_list.append({
+            "id": m.id,
+            "media_type": m.media_type,
+            "cloudinary_id": m.cloudinary_id,
+            "url": m.url,
+            "order": m.order
+        })
+
     return {
         "id": p.id,
         "title": p.title,
@@ -78,6 +126,7 @@ def project_to_dict(p: Project, cloud_name: str) -> dict:
             if p.cloudinary_video_id
             else None
         ),
+        "media": media_list,
         "created_at": p.created_at.isoformat() if p.created_at else None,
         "updated_at": p.updated_at.isoformat() if p.updated_at else None,
     }
@@ -118,6 +167,20 @@ def create_project():
         cloudinary_thumbnail_id=data.get("cloudinary_thumbnail_id", ""),
         is_featured=bool(data.get("is_featured", False)),
     )
+    
+    # Process media array
+    media_data = data.get("media", [])
+    if isinstance(media_data, list):
+        for index, item in enumerate(media_data):
+            if item.get("cloudinary_id") and item.get("url"):
+                pm = ProjectMedia(
+                    media_type=item.get("media_type", "standard_video"),
+                    cloudinary_id=item["cloudinary_id"],
+                    url=item["url"],
+                    order=index
+                )
+                project.media.append(pm)
+
     db.session.add(project)
     db.session.commit()
     return jsonify(project_to_dict(project, cloud_name)), 201
@@ -157,6 +220,18 @@ def update_project(project_id):
             project.release_date = date.fromisoformat(data["release_date"]) if data["release_date"] else None
         except ValueError:
             return jsonify({"error": "Invalid release_date format"}), 422
+
+    if "media" in data and isinstance(data["media"], list):
+        project.media.clear()  # Delete old media relationships
+        for index, item in enumerate(data["media"]):
+            if item.get("cloudinary_id") and item.get("url"):
+                pm = ProjectMedia(
+                    media_type=item.get("media_type", "standard_video"),
+                    cloudinary_id=item["cloudinary_id"],
+                    url=item["url"],
+                    order=index
+                )
+                project.media.append(pm)
 
     project.updated_at = datetime.utcnow()
     db.session.commit()
@@ -256,15 +331,16 @@ def update_settings():
 @jwt_required()
 def upload_file():
     resource_type = request.form.get("resource_type", "image")  # "image" or "video"
+    folder = request.form.get("folder")
     file = request.files.get("file")
     if not file or not file.filename:
         return jsonify({"error": "No file provided"}), 400
 
     try:
         if resource_type == "video":
-            result = upload_video(file)
+            result = upload_video(file, folder_name=folder) if folder else upload_video(file)
         else:
-            result = upload_image(file)
+            result = upload_image(file, folder_name=folder) if folder else upload_image(file)
         return jsonify(result), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 422

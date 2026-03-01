@@ -15,19 +15,18 @@ from app.models.setting import SiteSetting
 app = create_app(os.environ.get("FLASK_ENV", "development"))
 
 DEFAULT_SETTINGS = {
-    "about_text": (
-        "Hi, I'm a professional film editor passionate about storytelling through video. "
-        "With years of experience in commercials, music videos, and narrative projects, "
-        "I bring stories to life in the edit suite."
-    ),
-    "showreel_video_id": "",
-    "instagram_url": "",
-    "vimeo_url": "",
-    "linkedin_url": "",
-    "youtube_url": "",
-    "contact_email": os.environ.get("ADMIN_EMAIL", "admin@videolozy.in"),
     "editor_name": "Videolozy",
     "editor_tagline": "Crafting Stories Frame by Frame",
+    "home_text": "Professional film editor crafting compelling visual narratives. Explore our collection of cinematic masterpieces.",
+    "portfolio_text": "Welcome to the showcase. Here is a curated selection of recent film editing, commercial work, and documentary projects.",
+    "about_text": "I am a passionate film editor with years of experience bringing stories to life through rhythm, pacing, and visual storytelling.",
+    "contact_text": "Ready to collaborate? Reach out to discuss your next big project and let's craft something amazing together.",
+    "showreel_video_id": "",
+    "instagram_url": "https://instagram.com/",
+    "twitter_url": "https://x.com/",
+    "vimeo_url": "https://vimeo.com/",
+    "linkedin_url": "https://linkedin.com/",
+    "contact_email": os.environ.get("ADMIN_EMAIL", "admin@videolozy.in"),
 }
 
 

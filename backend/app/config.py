@@ -19,7 +19,7 @@ class Config:
     FRONTEND_ORIGIN = os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173")
 
     # File upload limits (bytes)
-    MAX_VIDEO_SIZE = 100 * 1024 * 1024   # 100 MB
+    MAX_VIDEO_SIZE = 1024 * 1024 * 1024  # 1 GB
     MAX_IMAGE_SIZE = 5 * 1024 * 1024     # 5 MB
     ALLOWED_VIDEO_EXTENSIONS = {"mp4", "mov", "avi", "mkv", "webm"}
     ALLOWED_IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "webp", "gif"}
