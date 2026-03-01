@@ -30,7 +30,7 @@ export default function PortfolioPage() {
             title="Portfolio & Profile — Videolozy.in"
             description="Explore the creative journey and portfolio of Bhuvan Bhaskar."
             settings={settings}
-            bgTheme="golden"
+            bgTheme="slate"
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 overflow-hidden">
 
@@ -51,12 +51,9 @@ export default function PortfolioPage() {
 
                     {/* CENTER CUTOUT IMAGE PLACEHOLDER (Z-10) */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[90%] z-10 pointer-events-none hidden lg:flex items-end justify-center">
-                        {/* Placeholder for standing person cutout */}
-                        <div className="w-[340px] h-[700px] bg-gradient-to-t from-surface-950 to-surface-700/20 rounded-t-full border border-white/5 backdrop-blur-sm flex items-center justify-center shadow-2xl overflow-hidden relative opacity-70">
-                            <div className="absolute inset-0 bg-[url('/avatar.png')] bg-cover bg-bottom opacity-50 mix-blend-luminosity"></div>
-                            <p className="text-surface-400 font-mono text-xs text-center px-4 leading-loose tracking-widest uppercase">
-                                Place transparent<br />avatar.png<br />here
-                            </p>
+                        {/* Avatar cutout */}
+                        <div className="w-[340px] h-[700px] bg-gradient-to-t from-surface-950 to-surface-700/20 rounded-t-full border border-white/5 backdrop-blur-sm shadow-2xl overflow-hidden relative">
+                            <div className="absolute inset-0 bg-[url('/avatar.png')] bg-cover bg-bottom"></div>
                         </div>
                     </div>
 
