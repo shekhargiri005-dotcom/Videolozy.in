@@ -3,7 +3,7 @@
 set -o errexit
 
 echo "Building Frontend (React/Vite)..."
-npm install --prefix frontend
+npm install --prefix frontend --legacy-peer-deps
 npm run build --prefix frontend
 
 echo "Installing Backend Dependencies (Python/Flask)..."
