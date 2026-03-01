@@ -49,11 +49,14 @@ export default function PortfolioPage() {
                         <p className="text-sm font-bold tracking-widest text-slate-400 mt-2">SENIOR FILM EDITOR</p>
                     </div>
 
-                    {/* CENTER CUTOUT IMAGE PLACEHOLDER (Z-10) */}
+                    {/* CENTER CUTOUT IMAGE (Z-10) */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[90%] z-10 pointer-events-none hidden lg:flex items-end justify-center">
-                        {/* Avatar cutout */}
-                        <div className="w-[340px] h-[700px] bg-gradient-to-t from-surface-950 to-surface-700/20 rounded-t-full border border-white/5 backdrop-blur-sm shadow-2xl overflow-hidden relative">
-                            <div className="absolute inset-0 bg-[url('/avatar.png')] bg-cover bg-bottom"></div>
+                        {/* Avatar cutout with masking gradient to blend the hard edges */}
+                        <div className="w-[380px] h-[750px] relative">
+                            {/* The actual image */}
+                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-[url('/avatar.png')] bg-cover bg-top rounded-t-[140px] shadow-2xl overflow-hidden shadow-[#1A1A1C]/50 border-t border-white/5"></div>
+                            {/* A gradient mask at the bottom to feather the hard image edge perfectly into the layout */}
+                            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#101012] via-[#2C2C2F]/80 to-transparent pointer-events-none rounded-b-xl z-20"></div>
                         </div>
                     </div>
 
