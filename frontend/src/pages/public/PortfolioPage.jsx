@@ -37,15 +37,20 @@ export default function PortfolioPage() {
                 {/* --- GLASSMORPHIC PROFILE SECTION --- */}
                 <div className="relative w-full min-h-[800px] mb-32 flex flex-col md:flex-row justify-between pt-10">
 
-                    {/* FULL BACKGROUND IMAGE (Added new portfolio bg) */}
-                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px] opacity-70">
-                        {/* The background image, kept full and shifted upwards */}
-                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat" style={{ backgroundPosition: 'center -60px' }}></div>
-                        {/* Gradient masks to seamlessly blend into the dark theme */}
-                        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#0f172a] via-[#101012]/80 to-transparent"></div>
-                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f172a] to-transparent opacity-50"></div>
-                        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0f172a] to-transparent opacity-50"></div>
-                        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0f172a] to-transparent opacity-50"></div>
+                    {/* FULL BACKGROUND IMAGE (Aesthetic UI/UX Update) */}
+                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px]">
+                        {/* The background image, kept full and shifted upwards with a cinematic dark filter */}
+                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat opacity-50 mix-blend-luminosity saturate-0 transition-opacity duration-700" style={{ backgroundPosition: 'center -60px' }}></div>
+
+                        {/* Premium Dark Gradients & Color Tints */}
+                        <div className="absolute inset-0 bg-slate-950/40 mix-blend-overlay"></div>
+                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/10 via-transparent to-surface-900/30"></div>
+
+                        {/* Heavy edge masks to seamlessly melt the image into the page background */}
+                        <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent"></div>
+                        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
+                        <div className="absolute inset-y-0 left-0 w-56 bg-gradient-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
+                        <div className="absolute inset-y-0 right-0 w-56 bg-gradient-to-l from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
                     </div>
 
                     {/* OVERLAPPING LARGE TEXT BEHIND EVERYTHING */}
