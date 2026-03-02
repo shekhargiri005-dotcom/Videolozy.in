@@ -37,27 +37,27 @@ export default function PortfolioPage() {
                 {/* --- GLASSMORPHIC PROFILE SECTION --- */}
                 <div className="relative w-full min-h-[800px] mb-32 flex flex-col md:flex-row justify-between pt-10">
 
+                    {/* FULL BACKGROUND IMAGE (Added new portfolio bg) */}
+                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px] opacity-70">
+                        {/* The background image, kept full and shifted upwards */}
+                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat" style={{ backgroundPosition: 'center -60px' }}></div>
+                        {/* Gradient masks to seamlessly blend into the dark theme */}
+                        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#0f172a] via-[#101012]/80 to-transparent"></div>
+                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f172a] to-transparent opacity-50"></div>
+                        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0f172a] to-transparent opacity-50"></div>
+                        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0f172a] to-transparent opacity-50"></div>
+                    </div>
+
                     {/* OVERLAPPING LARGE TEXT BEHIND EVERYTHING */}
-                    <div className="absolute top-0 left-0 z-0 leading-[0.85] tracking-tighter opacity-80 mix-blend-overlay pointer-events-none select-none hidden sm:block">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black text-white mix-blend-color-dodge">BHUVAN</h1>
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black text-white mix-blend-color-dodge">BHASKAR</h1>
+                    <div className="absolute top-0 left-0 z-10 leading-[0.85] tracking-tighter opacity-80 mix-blend-overlay pointer-events-none select-none hidden sm:block text-[#475569]">
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black mix-blend-color-dodge text-slate-500">BHUVAN</h1>
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black mix-blend-color-dodge text-slate-500">BHASKAR</h1>
                         <p className="text-xl md:text-3xl font-bold tracking-widest text-slate-400 mt-4 ml-2">SENIOR FILM EDITOR</p>
                     </div>
 
-                    <div className="sm:hidden mb-12 text-center">
-                        <h1 className="text-5xl font-black text-white tracking-tighter mix-blend-color-dodge">BHUVAN<br />BHASKAR</h1>
+                    <div className="sm:hidden mb-12 text-center relative z-10 text-slate-500">
+                        <h1 className="text-5xl font-black tracking-tighter mix-blend-color-dodge">BHUVAN<br />BHASKAR</h1>
                         <p className="text-sm font-bold tracking-widest text-slate-400 mt-2">SENIOR FILM EDITOR</p>
-                    </div>
-
-                    {/* CENTER CUTOUT IMAGE (Z-10) */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[90%] z-10 pointer-events-none hidden lg:flex items-end justify-center">
-                        {/* Avatar cutout with masking gradient to blend the hard edges */}
-                        <div className="w-[380px] h-[750px] relative">
-                            {/* The actual image */}
-                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-[url('/avatar.png')] bg-cover bg-top rounded-t-[140px] shadow-2xl overflow-hidden shadow-[#1A1A1C]/50 border-t border-white/5"></div>
-                            {/* A gradient mask at the bottom to feather the hard image edge perfectly into the layout */}
-                            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#101012] via-[#2C2C2F]/80 to-transparent pointer-events-none rounded-b-xl z-20"></div>
-                        </div>
                     </div>
 
                     {/* LEFT COLUMN (Z-20) */}
