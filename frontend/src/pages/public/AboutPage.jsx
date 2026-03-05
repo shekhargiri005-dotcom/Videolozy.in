@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, Camera } from 'lucide-react';
+import { Briefcase, Camera, Mail } from 'lucide-react';
 import PageLayout from '../../components/PageLayout';
 import { PageLoader } from '../../components/LoadingSpinner';
 import { fetchSiteSettings } from '../../services/api';
@@ -25,60 +25,90 @@ export default function AboutPage() {
             bgTheme="slate"
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
-                <div className="relative w-full min-h-[700px] flex flex-col items-center pt-24 pb-16 overflow-hidden rounded-[40px] shadow-2xl shadow-[#051114]/50 bg-[#051114]">
 
-                    {/* FULL BACKGROUND IMAGE */}
-                    <div className="absolute inset-0 z-0 pointer-events-none rounded-[40px] overflow-hidden">
-                        <div
-                            className="absolute inset-0 bg-[url('/about-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 transition-opacity duration-700">
-                        </div>
+                {/* ── ABOUT CARD ── */}
+                <div className="relative w-full overflow-hidden rounded-[40px] border border-cyan-900/30 shadow-2xl bg-[#051114]">
 
-                        {/* Edge Gradients - Matched to the dark background colors of the image (Deep Teal/Navy) */}
-                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#051114] via-[#051114]/90 to-transparent"></div>
-                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#051114] via-[#051114]/80 to-transparent"></div>
+                    {/* Ambient glow blobs */}
+                    <div className="absolute inset-0 z-0 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-72 bg-cyan-500/10 blur-[100px] rounded-full" />
+                        <div className="absolute bottom-0 right-0 w-64 h-64 bg-teal-400/5 blur-[80px] rounded-full" />
                     </div>
 
-                    <div className="relative z-10 w-full max-w-4xl px-4 text-center mb-14">
-                        <p className="text-brand-400 text-sm font-medium uppercase tracking-widest mb-2 drop-shadow-md">About</p>
-                        <h1 className="section-title mb-4 drop-shadow-xl">{settings.editor_name || 'Videolozy'}</h1>
-                        <p className="text-slate-300 font-medium drop-shadow-md">{settings.editor_tagline || 'Film Editor'}</p>
-                    </div>
+                    {/* ── TWO-COLUMN LAYOUT ── */}
+                    <div className="relative z-10 flex flex-col lg:flex-row min-h-[600px]">
 
-                    <div className="relative z-10 w-full max-w-4xl px-4">
-                        {/* About text */}
-                        <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-3xl p-8 mb-8 shadow-2xl">
-                            <p className="text-slate-200 leading-relaxed text-lg whitespace-pre-line">
-                                {settings.about_text || 'Bio coming soon.'}
-                            </p>
-                        </div>
-
-                        {/* Info cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-2xl p-6 shadow-xl">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-9 h-9 rounded-lg bg-brand-600/30 flex items-center justify-center">
-                                        <Briefcase size={18} className="text-brand-300" />
-                                    </div>
-                                    <h3 className="font-semibold text-white tracking-wide">Experience</h3>
-                                </div>
-                                <p className="text-slate-300 text-sm leading-relaxed">Commercials, music videos, short films, and documentaries.</p>
+                        {/* ── LEFT: FULL IMAGE (no crop, full visibility) ── */}
+                        <div className="w-full lg:w-1/2 flex items-center justify-center bg-[#051114]/80 p-6 lg:p-10">
+                            <div className="w-full max-w-sm lg:max-w-full flex items-center justify-center">
+                                <img
+                                    src="/about-bg.png"
+                                    alt={settings.editor_name || 'About — Videolozy.in'}
+                                    className="w-full h-auto max-h-[70vh] object-contain drop-shadow-[0_0_40px_rgba(6,182,212,0.20)] rounded-2xl"
+                                />
                             </div>
-                            <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-2xl p-6 shadow-xl">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-9 h-9 rounded-lg bg-cyan-600/30 flex items-center justify-center">
-                                        <Camera size={18} className="text-cyan-300" />
-                                    </div>
-                                    <h3 className="font-semibold text-white tracking-wide">Get in Touch</h3>
-                                </div>
-                                <p className="text-slate-300 text-sm">
-                                    {settings.contact_email ? (
-                                        <a href={`mailto:${settings.contact_email}`} className="hover:text-white transition-colors underline underline-offset-4">
-                                            {settings.contact_email}
-                                        </a>
-                                    ) : (
-                                        'Contact via the contact page.'
-                                    )}
+                        </div>
+
+                        {/* ── RIGHT: TEXT CONTENT ── */}
+                        <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 lg:px-12 lg:py-16 gap-8">
+
+                            {/* Header */}
+                            <div>
+                                <p className="text-cyan-400 text-xs font-bold uppercase tracking-[0.25em] mb-3">About</p>
+                                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-3">
+                                    {settings.editor_name || 'Videolozy'}
+                                </h1>
+                                <p className="text-cyan-200/70 text-base lg:text-lg font-medium tracking-wide">
+                                    {settings.editor_tagline || 'Film Editor'}
                                 </p>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="w-16 h-px bg-cyan-500/40" />
+
+                            {/* Bio */}
+                            <div className="bg-white/5 backdrop-blur-md border border-cyan-900/40 rounded-2xl p-6">
+                                <p className="text-slate-200 leading-relaxed text-base whitespace-pre-line">
+                                    {settings.about_text || 'A passionate film editor crafting stories through rhythm, pacing, and visual storytelling.'}
+                                </p>
+                            </div>
+
+                            {/* Info Cards */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {/* Experience */}
+                                <div className="bg-white/5 backdrop-blur-md border border-cyan-900/40 rounded-xl p-5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="w-8 h-8 rounded-lg bg-cyan-700/30 flex items-center justify-center">
+                                            <Briefcase size={16} className="text-cyan-300" />
+                                        </div>
+                                        <h3 className="font-semibold text-white text-sm tracking-wide">Experience</h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm leading-relaxed">
+                                        Commercials, music videos, short films, and documentaries.
+                                    </p>
+                                </div>
+
+                                {/* Contact */}
+                                <div className="bg-white/5 backdrop-blur-md border border-cyan-900/40 rounded-xl p-5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="w-8 h-8 rounded-lg bg-cyan-700/30 flex items-center justify-center">
+                                            <Mail size={16} className="text-cyan-300" />
+                                        </div>
+                                        <h3 className="font-semibold text-white text-sm tracking-wide">Get in Touch</h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm">
+                                        {settings.contact_email ? (
+                                            <a
+                                                href={`mailto:${settings.contact_email}`}
+                                                className="hover:text-cyan-300 transition-colors underline underline-offset-4"
+                                            >
+                                                {settings.contact_email}
+                                            </a>
+                                        ) : (
+                                            'Contact via the contact page.'
+                                        )}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
