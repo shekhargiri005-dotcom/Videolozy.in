@@ -25,7 +25,7 @@ export default function AboutPage() {
             bgTheme="slate"
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
-                <div className="relative w-full min-h-[700px] flex flex-col items-center pt-24 pb-16 overflow-hidden rounded-[40px] shadow-2xl shadow-black/50">
+                <div className="relative w-full min-h-[700px] flex flex-col items-center pt-24 pb-16 overflow-hidden rounded-[40px] shadow-2xl shadow-[#051114]/50 bg-[#051114]">
 
                     {/* FULL BACKGROUND IMAGE */}
                     <div className="absolute inset-0 z-0 pointer-events-none rounded-[40px] overflow-hidden">
@@ -33,9 +33,9 @@ export default function AboutPage() {
                             className="absolute inset-0 bg-[url('/about-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 transition-opacity duration-700">
                         </div>
 
-                        {/* Edge Gradients */}
-                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent"></div>
-                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/70 to-transparent"></div>
+                        {/* Edge Gradients - Matched to the dark background colors of the image (Deep Teal/Navy) */}
+                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#051114] via-[#051114]/90 to-transparent"></div>
+                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#051114] via-[#051114]/80 to-transparent"></div>
                     </div>
 
                     <div className="relative z-10 w-full max-w-4xl px-4 text-center mb-14">
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
                     <div className="relative z-10 w-full max-w-4xl px-4">
                         {/* About text */}
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 mb-8 shadow-2xl">
+                        <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-3xl p-8 mb-8 shadow-2xl">
                             <p className="text-slate-200 leading-relaxed text-lg whitespace-pre-line">
                                 {settings.about_text || 'Bio coming soon.'}
                             </p>
@@ -54,7 +54,7 @@ export default function AboutPage() {
 
                         {/* Info cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+                            <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-center gap-3 mb-3">
                                     <div className="w-9 h-9 rounded-lg bg-brand-600/30 flex items-center justify-center">
                                         <Briefcase size={18} className="text-brand-300" />
@@ -63,10 +63,10 @@ export default function AboutPage() {
                                 </div>
                                 <p className="text-slate-300 text-sm leading-relaxed">Commercials, music videos, short films, and documentaries.</p>
                             </div>
-                            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+                            <div className="bg-[#051114]/60 backdrop-blur-xl border border-cyan-900/40 rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-9 h-9 rounded-lg bg-purple-600/30 flex items-center justify-center">
-                                        <Camera size={18} className="text-purple-300" />
+                                    <div className="w-9 h-9 rounded-lg bg-cyan-600/30 flex items-center justify-center">
+                                        <Camera size={18} className="text-cyan-300" />
                                     </div>
                                     <h3 className="font-semibold text-white tracking-wide">Get in Touch</h3>
                                 </div>
