@@ -38,58 +38,55 @@ export default function PortfolioPage() {
                 <div className="relative w-full min-h-[800px] mb-32 flex flex-col md:flex-row justify-between pt-10">
 
                     {/* FULL BACKGROUND IMAGE (Aesthetic UI/UX Update) */}
-                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px]">
-                        {/* The background image, kept full and shifted upwards with a cinematic dark filter */}
-                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat opacity-50 mix-blend-luminosity saturate-0 transition-opacity duration-700" style={{ backgroundPosition: 'center -60px' }}></div>
+                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px] shadow-2xl bg-slate-100">
+                        {/* The background image, kept full and shifted upwards */}
+                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat opacity-[0.15] transition-opacity duration-700 mix-blend-multiply grayscale" style={{ backgroundPosition: 'center -60px' }}></div>
 
-                        {/* Premium Dark Gradients & Color Tints */}
-                        <div className="absolute inset-0 bg-slate-950/40 mix-blend-overlay"></div>
-                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/10 via-transparent to-surface-900/30"></div>
+                        {/* Metallic Silver gradients */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-slate-100/90 via-slate-200/90 to-slate-400/90"></div>
+                        <div className="absolute inset-0 bg-white/30"></div>
 
-                        {/* Heavy edge masks to seamlessly melt the image into the page background */}
-                        <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent"></div>
-                        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
-                        <div className="absolute inset-y-0 left-0 w-56 bg-gradient-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
-                        <div className="absolute inset-y-0 right-0 w-56 bg-gradient-to-l from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
+                        {/* Mask to seamlessly melt the image into the page background below */}
+                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
                     </div>
 
                     {/* OVERLAPPING LARGE TEXT BEHIND EVERYTHING */}
-                    <div className="absolute top-0 left-0 z-10 leading-[0.85] tracking-tighter opacity-80 mix-blend-overlay pointer-events-none select-none hidden sm:block text-[#475569]">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black mix-blend-color-dodge text-slate-500">BHUVAN</h1>
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black mix-blend-color-dodge text-slate-500">BHASKAR</h1>
-                        <p className="text-xl md:text-3xl font-bold tracking-widest text-slate-400 mt-4 ml-2">SENIOR FILM EDITOR</p>
+                    <div className="absolute top-0 left-0 z-10 leading-[0.85] tracking-tighter opacity-10 pointer-events-none select-none hidden sm:block text-slate-800">
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black drop-shadow-sm">BHUVAN</h1>
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black drop-shadow-sm">BHASKAR</h1>
+                        <p className="text-xl md:text-3xl font-bold tracking-widest text-slate-900 mt-4 ml-2">SENIOR FILM EDITOR</p>
                     </div>
 
-                    <div className="sm:hidden mb-12 text-center relative z-10 text-slate-500">
-                        <h1 className="text-5xl font-black tracking-tighter mix-blend-color-dodge">BHUVAN<br />BHASKAR</h1>
-                        <p className="text-sm font-bold tracking-widest text-slate-400 mt-2">SENIOR FILM EDITOR</p>
+                    <div className="sm:hidden mb-12 text-center relative z-10">
+                        <h1 className="text-5xl font-black tracking-tighter drop-shadow-sm text-slate-800">BHUVAN<br />BHASKAR</h1>
+                        <p className="text-sm font-bold tracking-widest text-slate-700 mt-2">SENIOR FILM EDITOR</p>
                     </div>
 
                     {/* LEFT COLUMN (Z-20) */}
                     <div className="relative z-20 w-full lg:w-1/3 flex flex-col gap-6 pt-0 sm:pt-48 lg:pt-[22rem]">
 
                         {/* Creative DNA */}
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
-                            <h3 className="text-white font-bold text-xl mb-4 uppercase tracking-wider">Creative DNA</h3>
-                            <ul className="text-brand-400 font-bold space-y-1 mb-6 text-lg">
-                                <li><span className="text-white">250+</span> Projects.</li>
-                                <li><span className="text-white">10+</span> Years.</li>
-                                <li><span className="text-white">One</span> obsessive visual mind.</li>
+                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl">
+                            <h3 className="text-slate-900 font-bold text-xl mb-4 uppercase tracking-wider">Creative DNA</h3>
+                            <ul className="text-brand-700 font-bold space-y-1 mb-6 text-lg">
+                                <li><span className="text-slate-800">250+</span> Projects.</li>
+                                <li><span className="text-slate-800">10+</span> Years.</li>
+                                <li><span className="text-slate-800">One</span> obsessive visual mind.</li>
                             </ul>
-                            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light">
+                            <p className="text-slate-700 text-sm md:text-base leading-relaxed font-medium">
                                 I'm an editor who found home in the cutting room, crafting cinematic experiences that blur the lines between rhythm, sound, and visual storytelling. I play with pacing, color, and emotion to take narratives even further.
                             </p>
                         </div>
 
                         {/* BEHANCE/PORTFOLIO LINK */}
-                        <a href="#gallery" className="bg-surface-950 border border-white/5 rounded-3xl p-6 flex items-center gap-6 hover:border-brand-500/50 transition-colors group cursor-pointer shadow-xl">
-                            <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-black font-black text-3xl shrink-0 leading-none">
+                        <a href="#gallery" className="bg-white/50 border border-slate-300/50 rounded-3xl p-6 flex items-center gap-6 hover:border-brand-500/50 transition-colors group cursor-pointer shadow-xl">
+                            <div className="w-16 h-16 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-3xl shrink-0 leading-none shadow-inner">
                                 Vl
                             </div>
                             <div>
-                                <h4 className="text-white font-bold text-xl uppercase tracking-wider mb-1">Portfolio</h4>
-                                <p className="text-slate-400 text-sm mb-2">Click to view my world.</p>
-                                <div className="flex items-center gap-2 text-brand-400">
+                                <h4 className="text-slate-900 font-bold text-xl uppercase tracking-wider mb-1">Portfolio</h4>
+                                <p className="text-slate-600 text-sm mb-2 font-medium">Click to view my world.</p>
+                                <div className="flex items-center gap-2 text-brand-700 font-bold">
                                     <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                     <span className="text-xs truncate max-w-[150px]">videolozy.in/portfolio</span>
                                 </div>
@@ -97,9 +94,9 @@ export default function PortfolioPage() {
                         </a>
 
                         {/* MEGA CLIENTS */}
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
-                            <h3 className="text-brand-400 font-bold text-lg mb-6 uppercase tracking-wider">Mega <span className="text-white">Clients</span></h3>
-                            <div className="grid grid-cols-3 gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 text-white">
+                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl">
+                            <h3 className="text-brand-700 font-bold text-lg mb-6 uppercase tracking-wider">Mega <span className="text-slate-900">Clients</span></h3>
+                            <div className="grid grid-cols-3 gap-8 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 text-slate-800">
                                 <div className="flex justify-center"><MonitorPlay size={32} /></div>
                                 <div className="flex justify-center"><Film size={32} /></div>
                                 <div className="flex justify-center"><Clapperboard size={32} /></div>
@@ -113,9 +110,9 @@ export default function PortfolioPage() {
                         </div>
 
                         {/* CONTACT */}
-                        <div className="mt-8 space-y-2 text-sm text-slate-400 font-medium bg-black/40 p-4 rounded-xl border border-white/5 inline-block w-fit backdrop-blur-md">
-                            <p className="flex items-center gap-3"><Mail size={16} /> {settings.contact_email || 'hello@videolozy.in'}</p>
-                            <p className="flex items-center gap-3"><Phone size={16} /> +91 98765 43210</p>
+                        <div className="mt-8 space-y-2 text-sm text-slate-700 font-bold bg-white/50 p-4 rounded-xl border border-slate-300/50 inline-block w-fit backdrop-blur-md shadow-sm">
+                            <p className="flex items-center gap-3"><Mail size={16} className="text-brand-600" /> {settings.contact_email || 'hello@videolozy.in'}</p>
+                            <p className="flex items-center gap-3"><Phone size={16} className="text-brand-600" /> +91 98765 43210</p>
                         </div>
                     </div>
 
@@ -124,14 +121,14 @@ export default function PortfolioPage() {
 
                         {/* EDUCATION */}
                         <div className="lg:text-right mb-6 lg:mb-10 max-w-sm">
-                            <h3 className="text-white font-bold text-xl mb-2 uppercase tracking-wider">Education</h3>
-                            <p className="text-slate-400 text-sm font-light">Bachelor of Fine Arts (BFA)<br />Film Editing & Visual FX</p>
+                            <h3 className="text-slate-900 font-bold text-xl mb-2 uppercase tracking-wider">Education</h3>
+                            <p className="text-slate-700 text-sm font-semibold">Bachelor of Fine Arts (BFA)<br />Film Editing & Visual FX</p>
                         </div>
 
                         {/* SKILLS */}
                         <div className="lg:text-right mb-6 lg:mb-32">
-                            <h3 className="text-brand-400 font-bold text-xl mb-4 uppercase tracking-wider">Skills</h3>
-                            <ul className="text-slate-300 text-sm space-y-2 font-light">
+                            <h3 className="text-brand-700 font-bold text-xl mb-4 uppercase tracking-wider">Skills</h3>
+                            <ul className="text-slate-800 text-sm space-y-2 font-bold">
                                 <li>Video Editing</li>
                                 <li>Color Grading</li>
                                 <li>Visual Storytelling</li>
@@ -144,35 +141,35 @@ export default function PortfolioPage() {
                         </div>
 
                         {/* CREATIVE JOURNEY */}
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl w-full">
-                            <h3 className="text-white font-bold text-xl mb-8 uppercase tracking-wider lg:text-right">Creative Journey</h3>
+                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl w-full">
+                            <h3 className="text-slate-900 font-bold text-xl mb-8 uppercase tracking-wider lg:text-right">Creative Journey</h3>
 
-                            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent lg:before:ml-auto lg:before:mr-2">
+                            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent lg:before:ml-auto lg:before:mr-2">
 
                                 <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group is-active">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-surface-900 bg-brand-500 text-slate-500 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0"></div>
+                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-brand-500 text-slate-500 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
                                     <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-brand-400 font-bold text-sm uppercase tracking-wider">Senior Film Editor</h4>
-                                        <p className="text-white text-sm font-medium">Videolozy.in</p>
-                                        <p className="text-slate-500 text-xs">2022 – Present (Full-Time / Remote)</p>
+                                        <h4 className="text-brand-700 font-bold text-sm uppercase tracking-wider">Senior Film Editor</h4>
+                                        <p className="text-slate-800 text-sm font-bold">Videolozy.in</p>
+                                        <p className="text-slate-600 text-xs font-medium">2022 – Present (Full-Time / Remote)</p>
                                     </div>
                                 </div>
 
                                 <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-surface-900 bg-white/20 text-slate-500 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0"></div>
+                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-slate-300 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
                                     <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-white font-bold text-sm uppercase tracking-wider">Lead Editor</h4>
-                                        <p className="text-slate-300 text-sm font-medium">Creative Agency Studios</p>
-                                        <p className="text-slate-500 text-xs">2019 – 2022 (Full-Time)</p>
+                                        <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider">Lead Editor</h4>
+                                        <p className="text-slate-700 text-sm font-bold">Creative Agency Studios</p>
+                                        <p className="text-slate-500 text-xs font-medium">2019 – 2022 (Full-Time)</p>
                                     </div>
                                 </div>
 
                                 <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-surface-900 bg-white/20 text-slate-500 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0"></div>
+                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-slate-300 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
                                     <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-white font-bold text-sm uppercase tracking-wider">Freelance Editor</h4>
-                                        <p className="text-slate-300 text-sm font-medium">Self-Employed</p>
-                                        <p className="text-slate-500 text-xs">2016 – 2019</p>
+                                        <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider">Freelance Editor</h4>
+                                        <p className="text-slate-700 text-sm font-bold">Self-Employed</p>
+                                        <p className="text-slate-500 text-xs font-medium">2016 – 2019</p>
                                     </div>
                                 </div>
 

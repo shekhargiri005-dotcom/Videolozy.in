@@ -28,18 +28,14 @@ export default function AboutPage() {
                 <div className="relative w-full min-h-[700px] flex flex-col items-center pt-24 pb-16 overflow-hidden rounded-[40px] shadow-2xl shadow-black/50">
 
                     {/* FULL BACKGROUND IMAGE */}
-                    <div className="absolute inset-0 z-0 pointer-events-none">
+                    <div className="absolute inset-0 z-0 pointer-events-none rounded-[40px] overflow-hidden">
                         <div
-                            className="absolute inset-0 bg-[url('/about-bg.jpg')] bg-cover bg-no-repeat opacity-60 mix-blend-luminosity saturate-0 transition-opacity duration-700"
-                            style={{ backgroundPosition: 'center 20%' }}>
+                            className="absolute inset-0 bg-[url('/about-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 transition-opacity duration-700">
                         </div>
-                        {/* Premium Dark Gradients & Color Tints */}
-                        <div className="absolute inset-0 bg-slate-950/40 mix-blend-overlay"></div>
-                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/10 via-transparent to-surface-900/30"></div>
 
                         {/* Edge Gradients */}
-                        <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent"></div>
-                        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/70 to-transparent"></div>
+                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent"></div>
+                        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/70 to-transparent"></div>
                     </div>
 
                     <div className="relative z-10 w-full max-w-4xl px-4 text-center mb-14">
