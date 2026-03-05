@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Clapperboard, MonitorPlay, Film, ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { Clapperboard, MonitorPlay, Film } from 'lucide-react';
 import PageLayout from '../../components/PageLayout';
 import ProjectCard from '../../components/ProjectCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -25,201 +25,189 @@ export default function PortfolioPage() {
     const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean)))];
     const filtered = activeCategory === 'All' ? projects : projects.filter((p) => p.category === activeCategory);
 
+    const name = settings.editor_name || 'Bhuvan Bhaskar';
+    const tagline = settings.editor_tagline || 'Senior Film Editor';
+
     return (
         <PageLayout
-            title="Portfolio & Profile — Videolozy.in"
-            description="Explore the creative journey and portfolio of Bhuvan Bhaskar."
+            title="Portfolio — Videolozy.in"
+            description="Explore the creative journey and portfolio of the team at Videolozy.in."
             settings={settings}
             bgTheme="slate"
         >
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 overflow-hidden">
-
-                {/* --- GLASSMORPHIC PROFILE SECTION --- */}
-                <div className="relative w-full min-h-[800px] mb-32 flex flex-col md:flex-row justify-between pt-10">
-
-                    {/* FULL BACKGROUND IMAGE (Aesthetic UI/UX Update) */}
-                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[40px] shadow-2xl bg-slate-100">
-                        {/* The background image, kept full and shifted upwards */}
-                        <div className="absolute inset-0 bg-[url('/portfolio-bg.png')] bg-cover bg-no-repeat opacity-[0.15] transition-opacity duration-700 mix-blend-multiply grayscale" style={{ backgroundPosition: 'center -60px' }}></div>
-
-                        {/* Metallic Silver gradients */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-100/90 via-slate-200/90 to-slate-400/90"></div>
-                        <div className="absolute inset-0 bg-white/30"></div>
-
-                        {/* Mask to seamlessly melt the image into the page background below */}
-                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
+            {/* ═══════════════════════════════════════════════════════ */}
+            {/* SECTION 1 — HERO / INTRODUCTION                         */}
+            {/* ═══════════════════════════════════════════════════════ */}
+            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-0">
+                <div
+                    className="relative overflow-hidden rounded-[28px] border border-white/8 shadow-2xl"
+                    style={{ background: '#080d18' }}
+                >
+                    {/* Ambient glow */}
+                    <div className="absolute inset-0 pointer-events-none z-0">
+                        <div className="absolute top-0 left-0 w-80 h-80 bg-blue-900/20 blur-[100px] rounded-full" />
+                        <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-900/10 blur-[100px] rounded-full" />
                     </div>
 
-                    {/* OVERLAPPING LARGE TEXT BEHIND EVERYTHING */}
-                    <div className="absolute top-0 left-0 z-10 leading-[0.85] tracking-tighter opacity-10 pointer-events-none select-none hidden sm:block text-slate-800">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black drop-shadow-sm">BHUVAN</h1>
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[11rem] font-black drop-shadow-sm">BHASKAR</h1>
-                        <p className="text-xl md:text-3xl font-bold tracking-widest text-slate-900 mt-4 ml-2">SENIOR FILM EDITOR</p>
+                    <div className="relative z-10 flex flex-col md:flex-row min-h-[320px]">
+
+                        {/* Left — Portrait with colored bg accent */}
+                        <div
+                            className="relative flex-shrink-0 w-full md:w-[280px] lg:w-[320px] flex items-end justify-center overflow-hidden"
+                            style={{ background: 'linear-gradient(160deg, #1a0a12 0%, #0d0517 100%)' }}
+                        >
+                            {/* Red accent glow behind portrait */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-rose-900/30 blur-[80px] rounded-full" />
+                            {/* Right edge blend */}
+                            <div className="hidden md:block absolute inset-y-0 right-0 w-20 z-20 bg-gradient-to-r from-transparent to-[#080d18]" />
+                            {/* Bottom fade (mobile) */}
+                            <div className="md:hidden absolute inset-x-0 bottom-0 h-20 z-20 bg-gradient-to-t from-[#080d18] to-transparent" />
+
+                            <img
+                                src="/about-bg.png"
+                                alt={name}
+                                className="relative z-10 w-[70%] md:w-full object-contain object-bottom"
+                                style={{ maxHeight: '320px' }}
+                            />
+                        </div>
+
+                        {/* Right — Title + tagline */}
+                        <div className="flex flex-col justify-center px-8 py-10 lg:px-12 gap-4">
+                            <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.5em]">
+                                Videolozy.in
+                            </p>
+                            <h1 className="font-display font-black text-white leading-none tracking-tight">
+                                <span className="text-5xl sm:text-6xl lg:text-7xl block">PORTFOLIO</span>
+                                <span className="text-3xl sm:text-4xl lg:text-5xl text-white/40">2025</span>
+                            </h1>
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-sm bg-cyan-400 inline-block" />
+                                <p className="text-cyan-300 text-xs font-bold uppercase tracking-[0.3em]">
+                                    {tagline}
+                                </p>
+                            </div>
+
+                            {/* Quick stats */}
+                            <div className="flex flex-wrap gap-6 mt-2">
+                                {[
+                                    { n: '250+', l: 'Projects' },
+                                    { n: '10+', l: 'Years' },
+                                    { n: '5★', l: 'Rated' },
+                                ].map(({ n, l }) => (
+                                    <div key={l}>
+                                        <p className="text-white text-2xl font-black font-display leading-none">{n}</p>
+                                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-0.5">{l}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div className="sm:hidden mb-12 text-center relative z-10">
-                        <h1 className="text-5xl font-black tracking-tighter drop-shadow-sm text-slate-800">BHUVAN<br />BHASKAR</h1>
-                        <p className="text-sm font-bold tracking-widest text-slate-700 mt-2">SENIOR FILM EDITOR</p>
-                    </div>
+            {/* ═══════════════════════════════════════════════════════ */}
+            {/* SECTION 2 — ABOUT + SKILLS                             */}
+            {/* ═══════════════════════════════════════════════════════ */}
+            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                <div
+                    className="relative overflow-hidden rounded-[28px] border border-white/8"
+                    style={{ background: '#0a1020' }}
+                >
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/8">
 
-                    {/* LEFT COLUMN (Z-20) */}
-                    <div className="relative z-20 w-full lg:w-1/3 flex flex-col gap-6 pt-0 sm:pt-48 lg:pt-[22rem]">
-
-                        {/* Creative DNA */}
-                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl">
-                            <h3 className="text-slate-900 font-bold text-xl mb-4 uppercase tracking-wider">Creative DNA</h3>
-                            <ul className="text-brand-700 font-bold space-y-1 mb-6 text-lg">
-                                <li><span className="text-slate-800">250+</span> Projects.</li>
-                                <li><span className="text-slate-800">10+</span> Years.</li>
-                                <li><span className="text-slate-800">One</span> obsessive visual mind.</li>
-                            </ul>
-                            <p className="text-slate-700 text-sm md:text-base leading-relaxed font-medium">
-                                I'm an editor who found home in the cutting room, crafting cinematic experiences that blur the lines between rhythm, sound, and visual storytelling. I play with pacing, color, and emotion to take narratives even further.
+                        {/* About Me */}
+                        <div className="px-8 py-8 lg:px-10">
+                            <p className="text-white/30 text-[9px] uppercase tracking-[0.4em] mb-1">Hello, I am</p>
+                            <h2 className="font-display font-black text-white text-2xl mb-5 uppercase tracking-wide">
+                                {name}
+                            </h2>
+                            <p className="text-white/55 text-sm leading-relaxed">
+                                {settings.about_text || 'A passionate film editor crafting stories through rhythm, pacing, and visual storytelling. Specializing in commercials, music videos, short films, and documentaries.'}
                             </p>
                         </div>
 
-                        {/* BEHANCE/PORTFOLIO LINK */}
-                        <a href="#gallery" className="bg-white/50 border border-slate-300/50 rounded-3xl p-6 flex items-center gap-6 hover:border-brand-500/50 transition-colors group cursor-pointer shadow-xl">
-                            <div className="w-16 h-16 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-3xl shrink-0 leading-none shadow-inner">
-                                Vl
+                        {/* Skills + Experience */}
+                        <div className="px-8 py-8 lg:px-10">
+                            <p className="text-cyan-400 text-[9px] uppercase tracking-[0.4em] mb-4 font-bold">Skills</p>
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                {['Video Editing', 'Color Grading', 'Visual FX', 'Motion Graphics', 'Sound Design', 'Creative Direction'].map((s) => (
+                                    <span key={s} className="px-3 py-1 text-xs font-semibold text-white/70 bg-white/8 border border-white/10 rounded-full">
+                                        {s}
+                                    </span>
+                                ))}
                             </div>
-                            <div>
-                                <h4 className="text-slate-900 font-bold text-xl uppercase tracking-wider mb-1">Portfolio</h4>
-                                <p className="text-slate-600 text-sm mb-2 font-medium">Click to view my world.</p>
-                                <div className="flex items-center gap-2 text-brand-700 font-bold">
-                                    <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                    <span className="text-xs truncate max-w-[150px]">videolozy.in/portfolio</span>
+
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p className="text-white/30 text-[9px] uppercase tracking-[0.3em] mb-1">Education</p>
+                                    <p className="text-white/80 font-semibold text-xs">Bachelor of Fine Arts</p>
+                                    <p className="text-white/40 text-xs">Film Editing & Visual FX</p>
+                                </div>
+                                <div>
+                                    <p className="text-white/30 text-[9px] uppercase tracking-[0.3em] mb-1">Experience</p>
+                                    <p className="text-white/80 font-semibold text-xs">10+ Years</p>
+                                    <p className="text-white/40 text-xs">Full-time / Remote</p>
                                 </div>
                             </div>
-                        </a>
-
-                        {/* MEGA CLIENTS */}
-                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl">
-                            <h3 className="text-brand-700 font-bold text-lg mb-6 uppercase tracking-wider">Mega <span className="text-slate-900">Clients</span></h3>
-                            <div className="grid grid-cols-3 gap-8 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 text-slate-800">
-                                <div className="flex justify-center"><MonitorPlay size={32} /></div>
-                                <div className="flex justify-center"><Film size={32} /></div>
-                                <div className="flex justify-center"><Clapperboard size={32} /></div>
-                                <div className="flex justify-center"><MonitorPlay size={32} /></div>
-                                <div className="flex justify-center"><Film size={32} /></div>
-                                <div className="flex justify-center"><Clapperboard size={32} /></div>
-                                <div className="flex justify-center"><MonitorPlay size={32} /></div>
-                                <div className="flex justify-center"><Film size={32} /></div>
-                                <div className="flex justify-center"><Clapperboard size={32} /></div>
-                            </div>
                         </div>
-
-                        {/* CONTACT */}
-                        <div className="mt-8 space-y-2 text-sm text-slate-700 font-bold bg-white/50 p-4 rounded-xl border border-slate-300/50 inline-block w-fit backdrop-blur-md shadow-sm">
-                            <p className="flex items-center gap-3"><Mail size={16} className="text-brand-600" /> {settings.contact_email || 'hello@videolozy.in'}</p>
-                            <p className="flex items-center gap-3"><Phone size={16} className="text-brand-600" /> +91 98765 43210</p>
-                        </div>
-                    </div>
-
-                    {/* RIGHT COLUMN (Z-20) */}
-                    <div className="relative z-20 w-full lg:w-1/3 flex flex-col gap-6 pt-10 lg:pt-16 lg:items-end">
-
-                        {/* EDUCATION */}
-                        <div className="lg:text-right mb-6 lg:mb-10 max-w-sm">
-                            <h3 className="text-slate-900 font-bold text-xl mb-2 uppercase tracking-wider">Education</h3>
-                            <p className="text-slate-700 text-sm font-semibold">Bachelor of Fine Arts (BFA)<br />Film Editing & Visual FX</p>
-                        </div>
-
-                        {/* SKILLS */}
-                        <div className="lg:text-right mb-6 lg:mb-32">
-                            <h3 className="text-brand-700 font-bold text-xl mb-4 uppercase tracking-wider">Skills</h3>
-                            <ul className="text-slate-800 text-sm space-y-2 font-bold">
-                                <li>Video Editing</li>
-                                <li>Color Grading</li>
-                                <li>Visual Storytelling</li>
-                                <li>Motion Graphics</li>
-                                <li>Sound Design</li>
-                                <li>VFX Compositing</li>
-                                <li>Team Leadership</li>
-                                <li>Creative Direction</li>
-                            </ul>
-                        </div>
-
-                        {/* CREATIVE JOURNEY */}
-                        <div className="bg-white/40 backdrop-blur-xl border border-slate-300/50 rounded-3xl p-6 md:p-8 shadow-xl w-full">
-                            <h3 className="text-slate-900 font-bold text-xl mb-8 uppercase tracking-wider lg:text-right">Creative Journey</h3>
-
-                            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent lg:before:ml-auto lg:before:mr-2">
-
-                                <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group is-active">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-brand-500 text-slate-500 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
-                                    <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-brand-700 font-bold text-sm uppercase tracking-wider">Senior Film Editor</h4>
-                                        <p className="text-slate-800 text-sm font-bold">Videolozy.in</p>
-                                        <p className="text-slate-600 text-xs font-medium">2022 – Present (Full-Time / Remote)</p>
-                                    </div>
-                                </div>
-
-                                <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-slate-300 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
-                                    <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider">Lead Editor</h4>
-                                        <p className="text-slate-700 text-sm font-bold">Creative Agency Studios</p>
-                                        <p className="text-slate-500 text-xs font-medium">2019 – 2022 (Full-Time)</p>
-                                    </div>
-                                </div>
-
-                                <div className="relative flex items-center justify-between md:justify-normal lg:flex-row-reverse group">
-                                    <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-slate-100 bg-slate-300 shrink-0 absolute left-0 md:left-1/2 md:-ml-2.5 lg:left-auto lg:right-0 shadow-sm"></div>
-                                    <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] lg:w-[calc(100%-2.5rem)] pl-4 md:pl-0 lg:pr-4 md:pr-4 group-odd:pl-4 lg:group-odd:pl-0 lg:text-right">
-                                        <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider">Freelance Editor</h4>
-                                        <p className="text-slate-700 text-sm font-bold">Self-Employed</p>
-                                        <p className="text-slate-500 text-xs font-medium">2016 – 2019</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+            </div>
 
-                {/* --- SEPARATOR --- */}
-                <div id="gallery" className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-20"></div>
+            {/* ═══════════════════════════════════════════════════════ */}
+            {/* SECTION 3 — RECAP / PROJECT GALLERY                    */}
+            {/* ═══════════════════════════════════════════════════════ */}
+            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-4 pb-20">
+                <div
+                    className="relative overflow-hidden rounded-[28px] border border-white/8 px-8 py-8 lg:px-10 lg:py-10"
+                    style={{ background: '#080d18' }}
+                >
+                    {/* Heading */}
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+                        <div>
+                            <p className="text-white/30 text-[9px] uppercase tracking-[0.4em] mb-1">Recap</p>
+                            <h2 className="font-display font-black text-white text-3xl uppercase tracking-tight">
+                                Project <span className="text-white/30">2025</span>
+                            </h2>
+                        </div>
 
-                {/* --- ORIGINAL PORTFOLIO GRID --- */}
-                <div className="text-center mb-12">
-                    <p className="text-brand-400 text-sm font-medium uppercase tracking-widest mb-2">Projects</p>
-                    <h2 className="section-title mb-4">Video Gallery</h2>
-                    <p className="text-slate-400 max-w-xl mx-auto">
-                        A curated selection of my past projects spanning various genres and visual styles.
-                    </p>
+                        {/* Category Filter */}
+                        {categories.length > 1 && (
+                            <div className="flex flex-wrap gap-2">
+                                {categories.map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setActiveCategory(cat)}
+                                        className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border transition-all duration-200 ${activeCategory === cat
+                                                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
+                                                : 'bg-white/5 text-white/40 border-white/10 hover:text-white/70'
+                                            }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Project Grid */}
+                    {loading ? (
+                        <div className="flex justify-center py-24">
+                            <LoadingSpinner size="lg" text="Loading projects..." />
+                        </div>
+                    ) : error ? (
+                        <div className="text-center py-20 text-red-400 text-sm">{error}</div>
+                    ) : filtered.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                            {filtered.map((p) => <ProjectCard key={p.id} project={p} />)}
+                        </div>
+                    ) : (
+                        <div className="text-center py-20 text-white/20">
+                            <Clapperboard size={36} className="mx-auto mb-3 opacity-30" />
+                            <p className="text-sm">No projects in this category.</p>
+                        </div>
+                    )}
                 </div>
-
-                {/* Category filter */}
-                {categories.length > 1 && (
-                    <div className="flex flex-wrap justify-center gap-2 mb-10">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                )}
-
-                {loading ? (
-                    <div className="flex justify-center py-32"><LoadingSpinner size="lg" text="Loading projects..." /></div>
-                ) : error ? (
-                    <div className="text-center py-20 text-red-400">{error}</div>
-                ) : filtered.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-                        {filtered.map((p) => <ProjectCard key={p.id} project={p} />)}
-                    </div>
-                ) : (
-                    <div className="text-center py-20 text-slate-500">
-                        <Clapperboard size={40} className="mx-auto mb-4 opacity-30" />
-                        <p>No projects found in this category.</p>
-                    </div>
-                )}
             </div>
         </PageLayout>
     );
