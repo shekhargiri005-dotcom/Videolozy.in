@@ -97,8 +97,8 @@ export default function AboutPage() {
                             <img
                                 src="/about-bg.png"
                                 alt={name}
-                                className="relative z-10 w-full h-full object-contain object-bottom"
-                                style={{ maxHeight: '85vh' }}
+                                className="relative z-10 w-full object-contain object-bottom"
+                                style={{ maxHeight: '100vh' }}
                             />
 
                             {/* Floating label at top center */}
@@ -160,13 +160,13 @@ export default function AboutPage() {
                         </div>
 
                         {/* Full character image — centered, full visible */}
-                        <div className="relative w-full flex justify-center px-4">
+                        <div className="relative w-full flex justify-center">
                             <div className="absolute inset-x-0 bottom-0 h-24 z-10 bg-gradient-to-t from-[#051114] to-transparent" />
                             <img
                                 src="/about-bg.png"
                                 alt={name}
-                                className="relative z-0 w-full max-w-xs object-contain"
-                                style={{ maxHeight: '55vh' }}
+                                className="relative z-0 w-full object-contain"
+                                style={{ maxHeight: '70vh' }}
                             />
                         </div>
 
