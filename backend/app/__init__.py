@@ -11,8 +11,8 @@ jwt = JWTManager()
 
 
 def create_app(env="development"):
-    # Point Flask's static folder to the Vite build output directory
-    app = Flask(__name__, static_folder='../../frontend/dist', static_url_path='')
+    # Disable Flask's default static serving to manually handle the React SPA
+    app = Flask(__name__, static_folder=None)
 
     # Load config
     from app.config import config_map
@@ -46,13 +46,15 @@ def create_app(env="development"):
     import os
     from flask import send_from_directory
 
+    frontend_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'frontend', 'dist'))
+
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def serve_frontend(path):
-        # If the requested path exists as a static file, serve it
-        if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-            return send_from_directory(app.static_folder, path)
-        # Otherwise, serve index.html (React Router handles the rest)
-        return send_from_directory(app.static_folder, "index.html")
+        # If the requested path exists as a static file, serve it directly
+        if path != "" and os.path.exists(os.path.join(frontend_folder, path)):
+            return send_from_directory(frontend_folder, path)
+        # Otherwise, fall back to index.html (React Router handles the rest)
+        return send_from_directory(frontend_folder, "index.html")
 
     return app
