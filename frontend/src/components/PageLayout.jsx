@@ -35,6 +35,16 @@ export default function PageLayout({ children, title, description, settings, bgT
                         <div className="absolute inset-0 bg-[#2C2C2F]/90 backdrop-blur-md" />
                         <div className="absolute inset-0 bg-gradient-to-b from-[#4A4B50]/30 via-[#2C2C2F]/60 to-[#101012]" />
                     </>
+                ) : bgTheme === 'contact' ? (
+                    <>
+                        {/* Contact page: use contact-bg.png instead of filmset-bg.png */}
+                        <div
+                            className="absolute inset-0 bg-cover bg-center"
+                            style={{ backgroundImage: "url('/contact-bg.png')" }}
+                        />
+                        <div className="absolute inset-0 bg-surface-950/75 backdrop-blur-sm" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-surface-950/40 via-surface-950/60 to-surface-950/95" />
+                    </>
                 ) : (
                     <>
                         {/* Standard dark cinematic gradient overlay */}

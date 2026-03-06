@@ -58,6 +58,7 @@ export default function ContactPage() {
             title="Contact — Videolozy.in"
             description="Hire Videolozy.in for your next film editing project. Get in touch today."
             settings={settings}
+            bgTheme="contact"
         >
             <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
                 <div className="text-center mb-12">

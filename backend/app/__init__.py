@@ -42,19 +42,34 @@ def create_app(env="development"):
     app.register_blueprint(public_bp, url_prefix="/api")
     app.register_blueprint(admin_bp, url_prefix="/api/admin")
 
-    # Serve React App for all other routes
+    # ── Static file serving ──────────────────────────────────────────────────
     import os
     from flask import send_from_directory
 
-    frontend_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'frontend', 'dist'))
+    # Public SPA — served at all non-API, non-admin routes
+    public_folder = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..', '..', 'frontend', 'dist')
+    )
+
+    # Admin SPA — served at /admin and /admin/*
+    admin_folder = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..', '..', 'admin-frontend', 'dist')
+    )
+
+    @app.route("/admin", defaults={"path": ""})
+    @app.route("/admin/<path:path>")
+    def serve_admin(path):
+        """Serve the standalone Admin SPA."""
+        if path and os.path.exists(os.path.join(admin_folder, path)):
+            return send_from_directory(admin_folder, path)
+        return send_from_directory(admin_folder, "index.html")
 
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def serve_frontend(path):
-        # If the requested path exists as a static file, serve it directly
-        if path != "" and os.path.exists(os.path.join(frontend_folder, path)):
-            return send_from_directory(frontend_folder, path)
-        # Otherwise, fall back to index.html (React Router handles the rest)
-        return send_from_directory(frontend_folder, "index.html")
+        """Serve the public SPA — fallback to index.html for client-side routing."""
+        if path and os.path.exists(os.path.join(public_folder, path)):
+            return send_from_directory(public_folder, path)
+        return send_from_directory(public_folder, "index.html")
 
     return app

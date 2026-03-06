@@ -24,6 +24,9 @@ export const fetchSiteSettings = () => api.get('/site-settings');
 
 export const submitContact = (data) => api.post('/contact', data);
 
+// Hidden gate — checks if an email belongs to an admin (always returns 200)
+export const checkAdminEmail = (email) => api.post('/check-admin-email', { email });
+
 // ── Admin: Auth ───────────────────────────────────────────────────────────────
 export const adminLogin = (credentials) => api.post('/admin/login', credentials);
 

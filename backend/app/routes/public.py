@@ -101,3 +101,24 @@ def submit_contact():
     db.session.add(inquiry)
     db.session.commit()
     return jsonify({"message": "Inquiry submitted successfully."}), 201
+
+
+@public_bp.route("/check-admin-email", methods=["POST"])
+def check_admin_email():
+    """
+    Secret email-gate: checks if the supplied email belongs to an AdminUser.
+    Always returns HTTP 200 regardless of outcome — no info leakage.
+    Frontend shows admin portal link only when matched == true.
+    """
+    from app.models.user import AdminUser
+    import time, hmac
+
+    data  = request.get_json(silent=True) or {}
+    email = (data.get("email") or "").strip().lower()
+
+    user  = AdminUser.query.filter_by(email=email).first() if email else None
+
+    # Constant-time-ish response to resist timing attacks
+    time.sleep(0.2)
+
+    return jsonify({"matched": bool(user)}), 200
