@@ -59,7 +59,7 @@ export default function PortfolioPage() {
     const name = settings.editor_name || 'Bhuvan Bhaskar';
     const tagline = settings.editor_tagline || 'Content Creator';
     const bio = settings.about_text || "HI, I'M BHUVAN BHASKAR, I'M BACK MAKING A PORTFOLIO AT THE END OF THE YEAR. I LEARNED A LOT OF THINGS FROM EDITING, FROM GRAPHIC DESIGN, VIDEO, TYPOGRAPHY AND OTHERS. ABOUT EDITING, I LEARNED FROM 2018 AUTODIDACTED, AND I HAVE A LITTLE EDITING SKILL THAT I LEARNED FROM YEAR TO YEAR.";
-    const email = settings.contact_email || 'admin@videolozy.in';
+    const email = settings.contact_email || 'videologyinpatna@gmail.com';
     const igUrl = settings.instagram_url || 'https://instagram.com';
     const ytUrl = settings.youtube_url || 'https://youtube.com';
 
@@ -270,8 +270,8 @@ export default function PortfolioPage() {
                                             key={cat}
                                             onClick={() => setActiveCategory(cat)}
                                             className={`px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest border transition-all duration-200 ${activeCategory === cat
-                                                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
-                                                    : 'bg-white/5 text-white/40 border-white/10 hover:text-white/70'
+                                                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                                                : 'bg-white/5 text-white/40 border-white/10 hover:text-white/70'
                                                 }`}
                                         >
                                             {cat}

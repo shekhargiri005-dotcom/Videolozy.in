@@ -26,7 +26,7 @@ DEFAULT_SETTINGS = {
     "twitter_url": "https://x.com/",
     "vimeo_url": "https://vimeo.com/",
     "linkedin_url": "https://linkedin.com/",
-    "contact_email": os.environ.get("ADMIN_EMAIL", "admin@videolozy.in"),
+    "contact_email": os.environ.get("ADMIN_EMAIL", "videologyinpatna@gmail.com"),
 }
 
 
@@ -37,7 +37,7 @@ def seed():
         # Admin user
         username = os.environ.get("ADMIN_USERNAME", "admin")
         password = os.environ.get("ADMIN_PASSWORD", "changeme123")
-        email = os.environ.get("ADMIN_EMAIL", "admin@videolozy.in")
+        email = os.environ.get("ADMIN_EMAIL", "videologyinpatna@gmail.com")
 
         existing = AdminUser.query.filter_by(username=username).first()
         if not existing:
